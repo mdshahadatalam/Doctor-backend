@@ -15,6 +15,26 @@ app.use(express.json())
 app.use(cors())
 
 
+
+app.post("/login", (req, res) => {
+  const {email, password} = req.body;
+  SignUp.findOne({email : email})
+  .then(user => {
+      if(user) {
+          if(user.password === password){
+              res.json("Success")
+          }else{
+              res.json("The password is incorrect")
+          }
+      }else{
+          res.json("No record existed")
+      }
+  })
+})
+
+
+
+
 app.post('/signUp', function (req, res) {
   console.log(req.body);
   let data =  new SignUp(req.body)
