@@ -43,5 +43,12 @@ app.post('/signUp', function (req, res) {
   
 })
 
+
+
+app.get('/loginData',function(req,res){
+  SignUp.find().then(data => res.json(data))
+  .catch(err => res.status(400).json({ message: err.message }))  
+})
+
 app.listen(3000)
 
