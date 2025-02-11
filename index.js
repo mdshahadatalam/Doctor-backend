@@ -4,6 +4,8 @@ const cors = require('cors')
 const app = express()
 const mongoose = require('mongoose');
 const SignUp = require('./Modal/SignUpModal')
+const Contact = require('./Modal/ContactInfor')
+const Appointment = require('./Modal/Appointment')
 
 
 
@@ -48,6 +50,34 @@ app.post('/signUp', function (req, res) {
 app.get('/loginData',function(req,res){
   SignUp.find().then(data => res.json(data))
   .catch(err => res.status(400).json({ message: err.message }))  
+})
+
+
+
+app.post('/contact',function(req,res){
+  let data = new Contact(req.body)
+  data.save()
+  res.send('data received')
+
+})
+
+app.get('/contact',function(req,res){
+  Contact.findOne().then(data => res.json(data))
+  .catch(err => res.status(400).json({ message: err.message }))
+
+  
+})
+
+
+
+
+app.post('/appointment',function(req,res){
+  console.log(req.body);
+  let data = new Appointment(req.body)
+  data.save()
+  res.send('data received')
+  
+  
 })
 
 app.listen(3000)
