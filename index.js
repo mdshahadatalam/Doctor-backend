@@ -80,5 +80,18 @@ app.post('/appointment',function(req,res){
   
 })
 
+
+app.get('/appointmentItem', async function(req,res){
+  let data = await Appointment.find()
+  res.json(data)
+})
+
+
+app.delete('/appointDelete/:id', async function(req,res){
+  let data = await Appointment.findByIdAndDelete(req.params.id,req.body)
+  res.send({message:"Service Deleted"})
+  
+})
+
 app.listen(3000)
 
