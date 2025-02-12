@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const SignUp = require('./Modal/SignUpModal')
 const Contact = require('./Modal/ContactInfor')
 const Appointment = require('./Modal/Appointment')
+const AddDoctor = require('./Modal/AddDoctor')
 
 
 
@@ -91,6 +92,14 @@ app.delete('/appointDelete/:id', async function(req,res){
   let data = await Appointment.findByIdAndDelete(req.params.id,req.body)
   res.send({message:"Service Deleted"})
   
+})
+
+
+
+app.post('/addDoctor',function(req,res){
+  let data = new AddDoctor(req.body)
+  data.save()
+  res.send('data received')
 })
 
 app.listen(3000)
