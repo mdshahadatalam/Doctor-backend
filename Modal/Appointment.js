@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const {Schema} = mongoose;
 
 const appointmentSchema = new Schema({
+    img:String,
     name:String,
     email:String,
     phone:String,

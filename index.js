@@ -8,6 +8,19 @@ const Contact = require('./Modal/ContactInfor')
 const Appointment = require('./Modal/Appointment')
 const AddDoctor = require('./Modal/AddDoctor')
 
+const multer  = require('multer')
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './uploads')
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+    cb(null,  uniqueSuffix+'-'+file.originalname)
+  }
+})
+
+const upload = multer({ storage: storage })
 
 
 
@@ -16,6 +29,7 @@ mongoose.connect(`mongodb+srv://${process.env.REACT_APP_USERNAME}:${process.env.
 
 app.use(express.json())
 app.use(cors())
+app.use('/uploads', express.static('./uploads'))
 
 
 
@@ -72,9 +86,9 @@ app.get('/contact',function(req,res){
 
 
 
-app.post('/appointment',function(req,res){
+app.post('/appointment',upload.single("img"),function(req,res){
   console.log(req.body);
-  let data = new Appointment(req.body)
+  let data = new Appointment({...req.body,img:req.file.path})
   data.save()
   res.send('data received')
   
