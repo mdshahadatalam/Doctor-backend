@@ -102,5 +102,13 @@ app.post('/addDoctor',function(req,res){
   res.send('data received')
 })
 
+
+
+app.get('/addDocItem',async function(req,res){
+  let data = await AddDoctor.find()
+  res.json(data)
+  
+})
+
 app.listen(3000)
 
