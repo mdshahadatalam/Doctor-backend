@@ -8,6 +8,7 @@ const Contact = require('./Modal/ContactInfor')
 const Appointment = require('./Modal/Appointment')
 const AddDoctor = require('./Modal/AddDoctor')
 
+const port = 3000
 const multer  = require('multer')
 
 const storage = multer.diskStorage({
@@ -124,5 +125,7 @@ app.get('/addDocItem',async function(req,res){
   
 })
 
-app.listen(3000)
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
 
